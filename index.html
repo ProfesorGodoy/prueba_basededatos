@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guardar datos</title>
+</head>
+<body>
+
+<h2>Registro</h2>
+
+<input type="text" id="nombre" placeholder="Nombre">
+<button onclick="guardar()">Guardar</button>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+  import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "TU_API_KEY",
+    authDomain: "TU_PROYECTO.firebaseapp.com",
+    projectId: "TU_PROYECTO"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.guardar = async function() {
+    const nombre = document.getElementById("nombre").value;
+
+    await addDoc(collection(db, "usuarios"), {
+      nombre: nombre
+    });
+
+    alert("Guardado en la nube");
+  }
+</script>
+
+</body>
+</html>
