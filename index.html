@@ -14,11 +14,14 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
   import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_PROYECTO.firebaseapp.com",
-    projectId: "TU_PROYECTO"
-  };
+ const firebaseConfig = {
+  apiKey: "AIzaSyDM8v20Egw8k1K4r3k_SKuWLLZs1lG5F94",
+  authDomain: "login-f4bec.firebaseapp.com",
+  projectId: "login-f4bec",
+  storageBucket: "login-f4bec.firebasestorage.app",
+  messagingSenderId: "555000645713",
+  appId: "1:555000645713:web:ffdc9f5e2ef294a3905070"
+};
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
