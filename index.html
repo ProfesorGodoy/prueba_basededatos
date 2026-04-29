@@ -10,31 +10,51 @@
 <input type="text" id="nombre" placeholder="Nombre">
 <button onclick="guardar()">Guardar</button>
 
+<p id="estado"></p>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
   import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
- const firebaseConfig = {
-  apiKey: "AIzaSyDM8v20Egw8k1K4r3k_SKuWLLZs1lG5F94",
-  authDomain: "login-f4bec.firebaseapp.com",
-  projectId: "login-f4bec",
-  storageBucket: "login-f4bec.firebasestorage.app",
-  messagingSenderId: "555000645713",
-  appId: "1:555000645713:web:ffdc9f5e2ef294a3905070"
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyDM8v20Egw8k1K4r3k_SKuWLLZs1lG5F94",
+    authDomain: "login-f4bec.firebaseapp.com",
+    projectId: "login-f4bec",
+    storageBucket: "login-f4bec.firebasestorage.app",
+    messagingSenderId: "555000645713",
+    appId: "1:555000645713:web:ffdc9f5e2ef294a3905070"
+  };
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
+  // FUNCIÓN GLOBAL
   window.guardar = async function() {
-    const nombre = document.getElementById("nombre").value;
 
-    await addDoc(collection(db, "usuarios"), {
-      nombre: nombre
-    });
+    const estado = document.getElementById("estado");
 
-    alert("Guardado en la nube");
+    try {
+      const nombre = document.getElementById("nombre").value;
+
+      if (!nombre) {
+        estado.innerText = "Ingresá un nombre";
+        return;
+      }
+
+      await addDoc(collection(db, "usuarios"), {
+        nombre: nombre,
+        fecha: new Date()
+      });
+
+      estado.innerText = "Guardado correctamente";
+      document.getElementById("nombre").value = "";
+
+    } catch (error) {
+      console.error(error);
+      estado.innerText = "Error: " + error.message;
+    }
   }
+
 </script>
 
 </body>
